@@ -1,0 +1,939 @@
+Cloud-init v. 22.1 running 'init-local' at Sat, 27 May 2023 02:49:55 +0000. Up 10.41 seconds.
+Cloud-init v. 22.1 running 'init' at Sat, 27 May 2023 02:50:03 +0000. Up 17.95 seconds.
+ci-info: ++++++++++++++++++++++++++++++++++++++Net device info+++++++++++++++++++++++++++++++++++++++
+ci-info: +--------+------+-----------------------------+---------------+--------+-------------------+
+ci-info: | Device |  Up  |           Address           |      Mask     | Scope  |     Hw-Address    |
+ci-info: +--------+------+-----------------------------+---------------+--------+-------------------+
+ci-info: |  eth0  | True |         192.168.55.3        | 255.255.255.0 | global | fa:16:3e:56:c0:8f |
+ci-info: |  eth0  | True | fe80::d48:29f3:e23d:469d/64 |       .       |  link  | fa:16:3e:56:c0:8f |
+ci-info: |   lo   | True |          127.0.0.1          |   255.0.0.0   |  host  |         .         |
+ci-info: |   lo   | True |           ::1/128           |       .       |  host  |         .         |
+ci-info: +--------+------+-----------------------------+---------------+--------+-------------------+
+ci-info: ++++++++++++++++++++++++++++++++Route IPv4 info+++++++++++++++++++++++++++++++++
+ci-info: +-------+-----------------+--------------+-----------------+-----------+-------+
+ci-info: | Route |   Destination   |   Gateway    |     Genmask     | Interface | Flags |
+ci-info: +-------+-----------------+--------------+-----------------+-----------+-------+
+ci-info: |   0   |     0.0.0.0     | 192.168.55.1 |     0.0.0.0     |    eth0   |   UG  |
+ci-info: |   1   | 169.254.169.254 | 192.168.55.1 | 255.255.255.255 |    eth0   |  UGH  |
+ci-info: |   2   |   192.168.55.0  |   0.0.0.0    |  255.255.255.0  |    eth0   |   U   |
+ci-info: +-------+-----------------+--------------+-----------------+-----------+-------+
+ci-info: +++++++++++++++++++Route IPv6 info+++++++++++++++++++
+ci-info: +-------+-------------+---------+-----------+-------+
+ci-info: | Route | Destination | Gateway | Interface | Flags |
+ci-info: +-------+-------------+---------+-----------+-------+
+ci-info: |   1   |  fe80::/64  |    ::   |    eth0   |   U   |
+ci-info: |   3   |  multicast  |    ::   |    eth0   |   U   |
+ci-info: +-------+-------------+---------+-----------+-------+
++++ readlink -f /etc/nesc/scripts/nesc-ntp-configure
+++ dirname /etc/nesc/scripts/nesc-ntp-configure
++ config=/etc/nesc/scripts/common.sh
++ . /etc/nesc/scripts/common.sh
+++ COMPLETION_LOG=/var/log/nesc-init-completions
+++ AZ_URL=http://169.254.169.254/latest/meta-data/placement/availability-zone
++++ curl -sf http://169.254.169.254/latest/meta-data/placement/availability-zone
+++ AVAILIBILITY_ZONE=es-si-os-ohn-64_1
++++ echo es-si-os-ohn-64_1
++++ awk -F- '{print $1}'
+++ SITE=es
+++++ readlink -f /etc/nesc/scripts/nesc-ntp-configure
++++ basename /etc/nesc/scripts/nesc-ntp-configure
+++ MOD_NAME=nesc-ntp-configure
+++ echo es-si-os-ohn-64_1
+++ grep '\-os-ihn-'
+++ ntp='ntp1.nesc.nokia.net ntp2.nesc.nokia.net ntp3.nesc.nokia.net'
+++ timezone=Europe/Helsinki
+++ echo '{ "country": "fi" }'
+++ '[' es = hz ']'
+++ '[' es = hz ']'
+++ '[' es = ch ']'
+++ '[' es = ch ']'
+++ '[' es = bh ']'
+++ '[' es = bh ']'
+++ case "$AVAILIBILITY_ZONE" in
++ '[' '' = '' ']'
++ echo fork process
+fork process
++ export I_am_the_child=TRUE
++ I_am_the_child=TRUE
++ exit 0
++ nohup /etc/nesc/scripts/nesc-ntp-configure
++++ readlink -f /etc/nesc/scripts/nesc-ntp-configure
+++ dirname /etc/nesc/scripts/nesc-ntp-configure
++ config=/etc/nesc/scripts/common.sh
++ . /etc/nesc/scripts/common.sh
+++ COMPLETION_LOG=/var/log/nesc-init-completions
+++ AZ_URL=http://169.254.169.254/latest/meta-data/placement/availability-zone
++++ curl -sf http://169.254.169.254/latest/meta-data/placement/availability-zone
+/run/cloud-init/tmp/tmp82ufxsep.sh: line 4: /etc/nesc/scripts/nsn-ntp-configure: No such file or directory
+++ AVAILIBILITY_ZONE=es-si-os-ohn-64_1
+/run/cloud-init/tmp/tmp82ufxsep.sh: line 5: /etc/nesc/scripts/nsn-rdnet-configure: No such file or directory
++++ echo es-si-os-ohn-64_1
++++ awk -F- '{print $1}'
+/run/cloud-init/tmp/tmp82ufxsep.sh: line 6: /etc/nesc/scripts/nsn-finish-boot: No such file or directory
+++ SITE=es
+++++ readlink -f /etc/nesc/scripts/nesc-ntp-configure
++++ basename /etc/nesc/scripts/nesc-ntp-configure
+++ MOD_NAME=nesc-ntp-configure
+++ echo es-si-os-ohn-64_1
+++ grep '\-os-ihn-'
+++ ntp='ntp1.nesc.nokia.net ntp2.nesc.nokia.net ntp3.nesc.nokia.net'
+++ timezone=Europe/Helsinki
+++ echo '{ "country": "fi" }'
+++ '[' es = hz ']'
+++ '[' es = hz ']'
+++ '[' es = ch ']'
+++ '[' es = ch ']'
+++ '[' es = bh ']'
+++ '[' es = bh ']'
+++ case "$AVAILIBILITY_ZONE" in
++ '[' '' = TRUE ']'
++ check_service dbus 60
++ local service=dbus
++ local tout=60
++ local i
++ (( i = 1 ))
++ (( 1 <= 60 ))
++ systemctl is-active dbus
++ grep '^active$'
+active
++ return
++ zoneinfo=/usr/share/zoneinfo/Europe/Helsinki
++ test -x /etc/init.d/ntpd
++ test -x /etc/init.d/ntp
++ test -f /etc/systemd/system/multi-user.target.wants/chronyd.service
++ service=chronyd
++ test -z Europe/Helsinki
++ test -z 'ntp1.nesc.nokia.net ntp2.nesc.nokia.net ntp3.nesc.nokia.net'
++ test -x /usr/bin/timedatectl
++ debug 'timezone set to Europe/Helsinki'
++ echo 'timezone set to Europe/Helsinki'
+timezone set to Europe/Helsinki
++ timedatectl set-timezone Europe/Helsinki
+grep: /var/log/nesc-init-completions: No such file or directory
++ service chronyd stop
+Redirecting to /bin/systemctl stop chronyd.service
++ which ntpdate
+which: no ntpdate in (/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin)
++ for filename in /etc/chrony/chrony.conf /etc/chrony.conf /etc/ntp.conf
++ test -f /etc/chrony/chrony.conf
++ for filename in /etc/chrony/chrony.conf /etc/chrony.conf /etc/ntp.conf
++ test -f /etc/chrony.conf
++ grep -v '^server ' /etc/chrony.conf
++ for s in $ntp
++ echo 'server ntp1.nesc.nokia.net'
++ for s in $ntp
++ echo 'server ntp2.nesc.nokia.net'
++ for s in $ntp
++ echo 'server ntp3.nesc.nokia.net'
++ mv /etc/chrony.conf.new /etc/chrony.conf
++ for filename in /etc/chrony/chrony.conf /etc/chrony.conf /etc/ntp.conf
++ test -f /etc/ntp.conf
++ '[' -f /etc/chrony.conf ']'
++ sed -i 's/^pool/# pool/' /etc/chrony.conf
++ '[' -f /etc/chrony/chrony.conf ']'
++ service chronyd start
+Redirecting to /bin/systemctl start chronyd.service
++ which ntpdate
++ which chronyc
++ debug 'ntpdate not found - using chronyc instead'
++ echo 'ntpdate not found - using chronyc instead'
+ntpdate not found - using chronyc instead
++ ret=1
++ set +x
+200 OK
+Chrony configure succeed
+wait for chrony to make new measurements
+Generating public/private rsa key pair.
+Your identification has been saved in /etc/ssh/ssh_host_rsa_key
+Your public key has been saved in /etc/ssh/ssh_host_rsa_key.pub
+The key fingerprint is:
+SHA256:94gxnqWQSJ8LX/kJ2I9Bgdlb8CSZBCdS68sJlNk32YU root@ndcs-jenkins-02
+The key's randomart image is:
++---[RSA 3072]----+
+|    ..+**+...    |
+|     =o++BE.     |
+|    = o =oo      |
+|   o + B.o       |
+|    + B S o      |
+|     = B # +     |
+|      * * = .    |
+|                 |
+|                 |
++----[SHA256]-----+
+Generating public/private dsa key pair.
+Your identification has been saved in /etc/ssh/ssh_host_dsa_key
+Your public key has been saved in /etc/ssh/ssh_host_dsa_key.pub
+The key fingerprint is:
+SHA256:E8pW1eNiVZFEMSMHU1VeFv6ItP81UA1V5I7O2Je1M/o root@ndcs-jenkins-02
+The key's randomart image is:
++---[DSA 1024]----+
+|          ..+*%O%|
+|         .  ++oBo|
+|        o  o.. o+|
+|     . o .o..o.+.|
+|      + S. .o.o +|
+|     .   .   *. +|
+|            . =*o|
+|              .o=|
+|             ..E.|
++----[SHA256]-----+
+Generating public/private ecdsa key pair.
+Your identification has been saved in /etc/ssh/ssh_host_ecdsa_key
+Your public key has been saved in /etc/ssh/ssh_host_ecdsa_key.pub
+The key fingerprint is:
+SHA256:mOD87RFkUxGJNGV+SbJ4fwwEP23mVfIYXF2KWzMe37A root@ndcs-jenkins-02
+The key's randomart image is:
++---[ECDSA 256]---+
+|       .ooO=o.o.*|
+|        .*.* +.*o|
+|    .   = + B % o|
+|   o . = o o @ O.|
+|    o o S   o E o|
+|     . . .   .   |
+|      . o        |
+|       . .       |
+|        .        |
++----[SHA256]-----+
+Generating public/private ed25519 key pair.
+Your identification has been saved in /etc/ssh/ssh_host_ed25519_key
+Your public key has been saved in /etc/ssh/ssh_host_ed25519_key.pub
+The key fingerprint is:
+SHA256:PFd1lonjdojENsEDgtKlA0S5rFvuiK2COgAyC2oWDhw root@ndcs-jenkins-02
+The key's randomart image is:
++--[ED25519 256]--+
+|  o+o oo .+.. o =|
+| E o.o. .  B + = |
+|. o oo    o * o  |
+|*o o  ..   o + . |
+|Boo     S . . .  |
+|+= .     o       |
+|= +              |
+|=o..             |
+|*+o.             |
++----[SHA256]-----+
+Cloud-init v. 22.1 running 'modules:config' at Sat, 27 May 2023 02:50:06 +0000. Up 21.19 seconds.
+Cloud-init v. 22.1 running 'modules:final' at Sat, 27 May 2023 02:50:07 +0000. Up 21.83 seconds.
+Setting system policy to LEGACY
+Note: System-wide crypto policies are applied on application start-up.
+It is recommended to restart the system for the change of policies
+to fully take place.
+Dependencies resolved.
+================================================================================
+ Package                     Arch       Version             Repository     Size
+================================================================================
+Removing:
+ zram-generator-defaults     noarch     1.1.2-1.fc36        @anaconda     320  
+Removing unused dependencies:
+ zram-generator              x86_64     1.1.2-1.fc36        @anaconda     921 k
+
+Transaction Summary
+================================================================================
+Remove  2 Packages
+
+Freed space: 922 k
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Preparing        :                                                        1/1 
+  Erasing          : zram-generator-defaults-1.1.2-1.fc36.noarch            1/2 
+  Erasing          : zram-generator-1.1.2-1.fc36.x86_64                     2/2 
+  Running scriptlet: zram-generator-1.1.2-1.fc36.x86_64                     2/2 
+  Verifying        : zram-generator-1.1.2-1.fc36.x86_64                     1/2 
+  Verifying        : zram-generator-defaults-1.1.2-1.fc36.noarch            2/2 
+
+Removed:
+  zram-generator-1.1.2-1.fc36.x86_64                                            
+  zram-generator-defaults-1.1.2-1.fc36.noarch                                   
+
+Complete!
+/usr/bin/python3
+which: no pip3 in (/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin)
+Fedora 36 - x86_64                               22 MB/s |  81 MB     00:03    
+200 OK
+wait for sync
+Fedora 36 openh264 (From Cisco) - x86_64        3.3 kB/s | 2.5 kB     00:00    
+Fedora Modular 36 - x86_64                      3.4 MB/s | 2.4 MB     00:00    
+Fedora 36 - x86_64 - Updates                     19 MB/s |  41 MB     00:02    
+Fedora Modular 36 - x86_64 - Updates            3.3 MB/s | 2.9 MB     00:00    
+Dependencies resolved.
+================================================================================
+ Package                        Arch       Version            Repository   Size
+================================================================================
+Installing:
+ python3-pip                    noarch     21.3.1-4.fc36      updates     1.8 M
+Upgrading:
+ python-unversioned-command     noarch     3.10.11-1.fc36     updates      11 k
+ python3                        x86_64     3.10.11-1.fc36     updates      27 k
+ python3-libs                   x86_64     3.10.11-1.fc36     updates     7.4 M
+
+Transaction Summary
+================================================================================
+Install  1 Package
+Upgrade  3 Packages
+
+Total download size: 9.3 M
+Downloading Packages:
+(1/4): python-unversioned-command-3.10.11-1.fc3 703 kB/s |  11 kB     00:00    
+(2/4): python3-3.10.11-1.fc36.x86_64.rpm        1.1 MB/s |  27 kB     00:00    
+(3/4): python3-pip-21.3.1-4.fc36.noarch.rpm      16 MB/s | 1.8 MB     00:00    
+(4/4): python3-libs-3.10.11-1.fc36.x86_64.rpm    26 MB/s | 7.4 MB     00:00    
+--------------------------------------------------------------------------------
+Total                                            12 MB/s | 9.3 MB     00:00     
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Preparing        :                                                        1/1 
+  Upgrading        : python3-libs-3.10.11-1.fc36.x86_64                     1/7 
+  Upgrading        : python3-3.10.11-1.fc36.x86_64                          2/7 
+  Upgrading        : python-unversioned-command-3.10.11-1.fc36.noarch       3/7 
+  Installing       : python3-pip-21.3.1-4.fc36.noarch                       4/7 
+  Cleanup          : python-unversioned-command-3.10.5-2.fc36.noarch        5/7 
+  Cleanup          : python3-3.10.5-2.fc36.x86_64                           6/7 
+  Cleanup          : python3-libs-3.10.5-2.fc36.x86_64                      7/7 
+  Running scriptlet: python3-libs-3.10.5-2.fc36.x86_64                      7/7 
+  Verifying        : python3-pip-21.3.1-4.fc36.noarch                       1/7 
+  Verifying        : python-unversioned-command-3.10.11-1.fc36.noarch       2/7 
+  Verifying        : python-unversioned-command-3.10.5-2.fc36.noarch        3/7 
+  Verifying        : python3-3.10.11-1.fc36.x86_64                          4/7 
+  Verifying        : python3-3.10.5-2.fc36.x86_64                           5/7 
+  Verifying        : python3-libs-3.10.11-1.fc36.x86_64                     6/7 
+  Verifying        : python3-libs-3.10.5-2.fc36.x86_64                      7/7 
+
+Upgraded:
+  python-unversioned-command-3.10.11-1.fc36.noarch                              
+  python3-3.10.11-1.fc36.x86_64                                                 
+  python3-libs-3.10.11-1.fc36.x86_64                                            
+Installed:
+  python3-pip-21.3.1-4.fc36.noarch                                              
+
+Complete!
+which: no openstack in (/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin)
+Collecting python-openstackclient==5.8.0
+  Downloading python_openstackclient-5.8.0-py3-none-any.whl (984 kB)
+Collecting openstacksdk>=0.61.0
+  Downloading openstacksdk-1.2.0-py3-none-any.whl (1.6 MB)
+Collecting pbr!=2.1.0,>=2.0.0
+  Downloading pbr-5.11.1-py2.py3-none-any.whl (112 kB)
+Collecting python-keystoneclient>=3.22.0
+  Downloading python_keystoneclient-5.1.0-py3-none-any.whl (398 kB)
+Collecting osc-lib>=2.3.0
+  Downloading osc_lib-2.8.0-py3-none-any.whl (89 kB)
+Collecting python-cinderclient>=3.3.0
+  Downloading python_cinderclient-9.3.0-py3-none-any.whl (255 kB)
+Collecting oslo.utils>=3.33.0
+  Downloading oslo.utils-6.1.0-py3-none-any.whl (100 kB)
+Collecting iso8601>=0.1.11
+  Downloading iso8601-1.1.0-py3-none-any.whl (9.9 kB)
+Collecting cliff>=3.5.0
+  Downloading cliff-4.3.0-py3-none-any.whl (80 kB)
+Collecting python-novaclient>=17.0.0
+  Downloading python_novaclient-18.3.0-py3-none-any.whl (335 kB)
+Collecting stevedore>=2.0.1
+  Downloading stevedore-5.1.0-py3-none-any.whl (49 kB)
+Collecting oslo.i18n>=3.15.3
+  Downloading oslo.i18n-6.0.0-py3-none-any.whl (46 kB)
+Requirement already satisfied: PyYAML>=3.12 in /usr/lib64/python3.10/site-packages (from cliff>=3.5.0->python-openstackclient==5.8.0) (6.0)
+Collecting autopage>=0.4.0
+  Downloading autopage-0.5.1-py3-none-any.whl (29 kB)
+Collecting importlib-metadata>=4.4
+  Downloading importlib_metadata-6.6.0-py3-none-any.whl (22 kB)
+Collecting cmd2>=1.0.0
+  Downloading cmd2-2.4.3-py3-none-any.whl (147 kB)
+Requirement already satisfied: PrettyTable>=0.7.2 in /usr/lib/python3.10/site-packages (from cliff>=3.5.0->python-openstackclient==5.8.0) (0.7.2)
+Requirement already satisfied: netifaces>=0.10.4 in /usr/lib64/python3.10/site-packages (from openstacksdk>=0.61.0->python-openstackclient==5.8.0) (0.11.0)
+Collecting jmespath>=0.9.0
+  Downloading jmespath-1.0.1-py3-none-any.whl (20 kB)
+Collecting requestsexceptions>=1.2.0
+  Downloading requestsexceptions-1.4.0-py2.py3-none-any.whl (3.8 kB)
+Collecting dogpile.cache>=0.6.5
+  Downloading dogpile.cache-1.2.1-py3-none-any.whl (51 kB)
+Collecting decorator>=4.4.1
+  Downloading decorator-5.1.1-py3-none-any.whl (9.1 kB)
+Requirement already satisfied: jsonpatch!=1.20,>=1.16 in /usr/lib/python3.10/site-packages (from openstacksdk>=0.61.0->python-openstackclient==5.8.0) (1.21)
+Collecting os-service-types>=1.7.0
+  Downloading os_service_types-1.7.0-py2.py3-none-any.whl (24 kB)
+Requirement already satisfied: cryptography>=2.7 in /usr/lib64/python3.10/site-packages (from openstacksdk>=0.61.0->python-openstackclient==5.8.0) (36.0.0)
+Collecting keystoneauth1>=3.18.0
+  Downloading keystoneauth1-5.2.0-py3-none-any.whl (322 kB)
+Collecting appdirs>=1.3.0
+  Downloading appdirs-1.4.4-py2.py3-none-any.whl (9.6 kB)
+Collecting simplejson>=3.5.1
+  Downloading simplejson-3.19.1-cp310-cp310-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (137 kB)
+Collecting pyparsing>=2.1.0
+  Downloading pyparsing-3.0.9-py3-none-any.whl (98 kB)
+Collecting pytz>=2013.6
+  Downloading pytz-2023.3-py2.py3-none-any.whl (502 kB)
+Collecting netaddr>=0.7.18
+  Downloading netaddr-0.8.0-py2.py3-none-any.whl (1.9 MB)
+Collecting packaging>=20.4
+  Downloading packaging-23.1-py3-none-any.whl (48 kB)
+Collecting debtcollector>=1.2.0
+  Downloading debtcollector-2.5.0-py3-none-any.whl (23 kB)
+Requirement already satisfied: requests>=2.25.1 in /usr/lib/python3.10/site-packages (from python-cinderclient>=3.3.0->python-openstackclient==5.8.0) (2.27.1)
+Requirement already satisfied: six>=1.10.0 in /usr/lib/python3.10/site-packages (from python-keystoneclient>=3.22.0->python-openstackclient==5.8.0) (1.16.0)
+Collecting oslo.config>=5.2.0
+  Downloading oslo.config-9.1.1-py3-none-any.whl (128 kB)
+Collecting oslo.serialization!=2.19.1,>=2.18.0
+  Downloading oslo.serialization-5.1.1-py3-none-any.whl (25 kB)
+Collecting pyperclip>=1.6
+  Downloading pyperclip-1.8.2.tar.gz (20 kB)
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status 'done'
+Collecting wcwidth>=0.1.7
+  Downloading wcwidth-0.2.6-py2.py3-none-any.whl (29 kB)
+Requirement already satisfied: attrs>=16.3.0 in /usr/lib/python3.10/site-packages (from cmd2>=1.0.0->cliff>=3.5.0->python-openstackclient==5.8.0) (21.4.0)
+Requirement already satisfied: cffi>=1.12 in /usr/lib64/python3.10/site-packages (from cryptography>=2.7->openstacksdk>=0.61.0->python-openstackclient==5.8.0) (1.15.0)
+Collecting wrapt>=1.7.0
+  Downloading wrapt-1.15.0-cp310-cp310-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (78 kB)
+Collecting zipp>=0.5
+  Downloading zipp-3.15.0-py3-none-any.whl (6.8 kB)
+Requirement already satisfied: jsonpointer>=1.9 in /usr/lib/python3.10/site-packages (from jsonpatch!=1.20,>=1.16->openstacksdk>=0.61.0->python-openstackclient==5.8.0) (2.0)
+Collecting rfc3986>=1.2.0
+  Downloading rfc3986-2.0.0-py2.py3-none-any.whl (31 kB)
+Collecting msgpack>=0.5.2
+  Downloading msgpack-1.0.5-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (316 kB)
+Requirement already satisfied: charset-normalizer~=2.0.0 in /usr/lib/python3.10/site-packages (from requests>=2.25.1->python-cinderclient>=3.3.0->python-openstackclient==5.8.0) (2.0.11)
+Requirement already satisfied: idna<4,>=2.5 in /usr/lib/python3.10/site-packages (from requests>=2.25.1->python-cinderclient>=3.3.0->python-openstackclient==5.8.0) (3.3)
+Requirement already satisfied: urllib3<1.27,>=1.21.1 in /usr/lib/python3.10/site-packages (from requests>=2.25.1->python-cinderclient>=3.3.0->python-openstackclient==5.8.0) (1.26.8)
+Requirement already satisfied: pycparser in /usr/lib/python3.10/site-packages (from cffi>=1.12->cryptography>=2.7->openstacksdk>=0.61.0->python-openstackclient==5.8.0) (2.20)
+Requirement already satisfied: ply==3.11 in /usr/lib/python3.10/site-packages (from pycparser->cffi>=1.12->cryptography>=2.7->openstacksdk>=0.61.0->python-openstackclient==5.8.0) (3.11)
+Using legacy 'setup.py install' for pyperclip, since package 'wheel' is not installed.
+Installing collected packages: wrapt, pbr, zipp, wcwidth, stevedore, pytz, pyperclip, pyparsing, packaging, oslo.i18n, os-service-types, netaddr, iso8601, decorator, debtcollector, rfc3986, requestsexceptions, oslo.utils, msgpack, keystoneauth1, jmespath, importlib-metadata, dogpile.cache, cmd2, autopage, appdirs, simplejson, oslo.serialization, oslo.config, openstacksdk, cliff, python-novaclient, python-keystoneclient, python-cinderclient, osc-lib, python-openstackclient
+    Running setup.py install for pyperclip: started
+    Running setup.py install for pyperclip: finished with status 'done'
+Successfully installed appdirs-1.4.4 autopage-0.5.1 cliff-4.3.0 cmd2-2.4.3 debtcollector-2.5.0 decorator-5.1.1 dogpile.cache-1.2.1 importlib-metadata-6.6.0 iso8601-1.1.0 jmespath-1.0.1 keystoneauth1-5.2.0 msgpack-1.0.5 netaddr-0.8.0 openstacksdk-1.2.0 os-service-types-1.7.0 osc-lib-2.8.0 oslo.config-9.1.1 oslo.i18n-6.0.0 oslo.serialization-5.1.1 oslo.utils-6.1.0 packaging-23.1 pbr-5.11.1 pyparsing-3.0.9 pyperclip-1.8.2 python-cinderclient-9.3.0 python-keystoneclient-5.1.0 python-novaclient-18.3.0 python-openstackclient-5.8.0 pytz-2023.3 requestsexceptions-1.4.0 rfc3986-2.0.0 simplejson-3.19.1 stevedore-5.1.0 wcwidth-0.2.6 wrapt-1.15.0 zipp-3.15.0
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+200 OK
+42 files removed
+{"status":200,"statusdetail":"Match","request":{"id":"187830c9-cc56-4898-88b8-97436c1e35a4","action":"search-regexp","record":"jenkins02.ndcs.dyn.nesc.nokia.net.","original":"jenkins02.ndcs.dyn.nesc.nokia.net","zone":"dyn.nesc.nokia.net."},"result":[{"Hdr":{"Name":"jenkins02.ndcs.dyn.nesc.nokia.net.","Rrtype":1,"Class":1,"Ttl":300,"Rdlength":4},"A":"10.157.7.106"},{"Hdr":{"Name":"jenkins02.ndcs-sjy.dyn.nesc.nokia.net.","Rrtype":1,"Class":1,"Ttl":300,"Rdlength":4},"A":"10.157.7.212"}],"cloud":null}
+jenkins02.ndcs.dyn.nesc.nokia.net already exists! skip it!
+Fedora 36 - x86_64                               22 MB/s |  81 MB     00:03    
+Fedora 36 openh264 (From Cisco) - x86_64        1.5 kB/s | 2.5 kB     00:01    
+Fedora Modular 36 - x86_64                      3.5 MB/s | 2.4 MB     00:00    
+Fedora 36 - x86_64 - Updates                     19 MB/s |  41 MB     00:02    
+Fedora Modular 36 - x86_64 - Updates            6.1 MB/s | 2.9 MB     00:00    
+Dependencies resolved.
+================================================================================
+ Package                    Arch     Version                    Repo       Size
+================================================================================
+Installing:
+ crontabs                   noarch   1.11-27.20190603git.fc36   updates    18 k
+ docker-compose             noarch   1.29.2-4.fc36              fedora    244 k
+ iptables-legacy            x86_64   1.8.7-15.fc36              fedora     54 k
+ moby-engine                x86_64   20.10.21-1.fc36            updates    29 M
+Installing dependencies:
+ container-selinux          noarch   2:2.181.0-2.fc36           fedora     49 k
+ containerd                 x86_64   1.6.19-1.fc36              updates    38 M
+ cronie                     x86_64   1.5.7-5.fc36               updates   114 k
+ cronie-anacron             x86_64   1.5.7-5.fc36               updates    32 k
+ iptables-legacy-libs       x86_64   1.8.7-15.fc36              fedora     39 k
+ iptables-libs              x86_64   1.8.7-15.fc36              fedora    402 k
+ jansson                    x86_64   2.13.1-4.fc36              fedora     44 k
+ libbsd                     x86_64   0.11.7-2.fc36              updates   112 k
+ libibverbs                 x86_64   39.0-1.fc36                fedora    400 k
+ libmd                      x86_64   1.0.4-2.fc36               updates    39 k
+ libnet                     x86_64   1.2-5.fc36                 fedora     58 k
+ libnetfilter_conntrack     x86_64   1.0.8-4.fc36               fedora     57 k
+ libnfnetlink               x86_64   1.0.1-21.fc36              fedora     29 k
+ libnftnl                   x86_64   1.2.1-2.fc36               fedora     83 k
+ libpcap                    x86_64   14:1.10.4-1.fc36           updates   176 k
+ libsodium                  x86_64   1.0.18-9.fc36              fedora    163 k
+ libtool-ltdl               x86_64   2.4.7-1.fc36               updates    37 k
+ nftables                   x86_64   1:1.0.1-3.fc36             fedora    380 k
+ python3-bcrypt             x86_64   3.2.2-1.fc36               updates    43 k
+ python3-cached_property    noarch   1.5.2-6.fc36               fedora     19 k
+ python3-certifi            noarch   2021.10.8-1.fc36           fedora     15 k
+ python3-chardet            noarch   4.0.0-17.fc36              updates   219 k
+ python3-click              noarch   8.0.4-2.fc36               fedora    177 k
+ python3-docker             noarch   5.0.3-1.fc36               updates   209 k
+ python3-docker+ssh         noarch   5.0.3-1.fc36               updates   9.0 k
+ python3-docker-pycreds     noarch   0.4.0-12.fc36              fedora     21 k
+ python3-dockerpty          noarch   0.4.1-24.fc36              fedora     30 k
+ python3-docopt             noarch   0.6.2-22.fc36              fedora     29 k
+ python3-dotenv             noarch   0.19.2-2.fc36              fedora     38 k
+ python3-paramiko           noarch   2.12.0-1.fc36              updates   304 k
+ python3-pynacl             x86_64   1.4.0-5.fc36               fedora    108 k
+ python3-texttable          noarch   1.6.2-11.fc36              fedora     24 k
+ python3-websocket-client   noarch   1.3.2-2.fc36               updates    92 k
+ runc                       x86_64   2:1.1.6-1.fc36             updates   3.1 M
+Installing weak dependencies:
+ criu                       x86_64   3.17.1-2.fc36              updates   546 k
+ python3-dotenv+cli         noarch   0.19.2-2.fc36              fedora    9.9 k
+ python3-pyasn1             noarch   0.4.8-8.fc36               fedora    134 k
+
+Transaction Summary
+================================================================================
+Install  41 Packages
+
+Total download size: 75 M
+Installed size: 276 M
+Downloading Packages:
+(1/41): iptables-legacy-1.8.7-15.fc36.x86_64.rp 2.7 MB/s |  54 kB     00:00    
+(2/41): iptables-legacy-libs-1.8.7-15.fc36.x86_ 5.0 MB/s |  39 kB     00:00    
+(3/41): container-selinux-2.181.0-2.fc36.noarch 827 kB/s |  49 kB     00:00    
+(4/41): iptables-libs-1.8.7-15.fc36.x86_64.rpm   11 MB/s | 402 kB     00:00    
+(5/41): docker-compose-1.29.2-4.fc36.noarch.rpm 3.4 MB/s | 244 kB     00:00    
+(6/41): jansson-2.13.1-4.fc36.x86_64.rpm        4.3 MB/s |  44 kB     00:00    
+(7/41): libibverbs-39.0-1.fc36.x86_64.rpm        13 MB/s | 400 kB     00:00    
+(8/41): libnet-1.2-5.fc36.x86_64.rpm            2.1 MB/s |  58 kB     00:00    
+(9/41): libnetfilter_conntrack-1.0.8-4.fc36.x86 2.0 MB/s |  57 kB     00:00    
+(10/41): libnftnl-1.2.1-2.fc36.x86_64.rpm       7.2 MB/s |  83 kB     00:00    
+(11/41): libnfnetlink-1.0.1-21.fc36.x86_64.rpm  1.4 MB/s |  29 kB     00:00    
+(12/41): libsodium-1.0.18-9.fc36.x86_64.rpm     9.1 MB/s | 163 kB     00:00    
+(13/41): python3-certifi-2021.10.8-1.fc36.noarc 2.6 MB/s |  15 kB     00:00    
+(14/41): python3-cached_property-1.5.2-6.fc36.n 1.1 MB/s |  19 kB     00:00    
+(15/41): python3-click-8.0.4-2.fc36.noarch.rpm  9.8 MB/s | 177 kB     00:00    
+(16/41): nftables-1.0.1-3.fc36.x86_64.rpm       9.0 MB/s | 380 kB     00:00    
+(17/41): python3-dockerpty-0.4.1-24.fc36.noarch 2.7 MB/s |  30 kB     00:00    
+(18/41): python3-docopt-0.6.2-22.fc36.noarch.rp 3.2 MB/s |  29 kB     00:00    
+(19/41): python3-dotenv+cli-0.19.2-2.fc36.noarc 1.2 MB/s | 9.9 kB     00:00    
+(20/41): python3-dotenv-0.19.2-2.fc36.noarch.rp 4.8 MB/s |  38 kB     00:00    
+(21/41): python3-docker-pycreds-0.4.0-12.fc36.n 485 kB/s |  21 kB     00:00    
+(22/41): python3-texttable-1.6.2-11.fc36.noarch 3.1 MB/s |  24 kB     00:00    
+(23/41): python3-pynacl-1.4.0-5.fc36.x86_64.rpm 5.7 MB/s | 108 kB     00:00    
+(24/41): python3-pyasn1-0.4.8-8.fc36.noarch.rpm 2.6 MB/s | 134 kB     00:00    
+(25/41): criu-3.17.1-2.fc36.x86_64.rpm           15 MB/s | 546 kB     00:00    
+(26/41): cronie-1.5.7-5.fc36.x86_64.rpm         6.7 MB/s | 114 kB     00:00    
+(27/41): cronie-anacron-1.5.7-5.fc36.x86_64.rpm 2.6 MB/s |  32 kB     00:00    
+(28/41): crontabs-1.11-27.20190603git.fc36.noar 1.8 MB/s |  18 kB     00:00    
+(29/41): libbsd-0.11.7-2.fc36.x86_64.rpm         11 MB/s | 112 kB     00:00    
+(30/41): libmd-1.0.4-2.fc36.x86_64.rpm          4.0 MB/s |  39 kB     00:00    
+(31/41): libtool-ltdl-2.4.7-1.fc36.x86_64.rpm   6.0 MB/s |  37 kB     00:00    
+(32/41): libpcap-1.10.4-1.fc36.x86_64.rpm        11 MB/s | 176 kB     00:00    
+(33/41): python3-bcrypt-3.2.2-1.fc36.x86_64.rpm 5.9 MB/s |  43 kB     00:00    
+(34/41): python3-chardet-4.0.0-17.fc36.noarch.r  16 MB/s | 219 kB     00:00    
+(35/41): python3-docker+ssh-5.0.3-1.fc36.noarch 1.5 MB/s | 9.0 kB     00:00    
+(36/41): python3-docker-5.0.3-1.fc36.noarch.rpm  13 MB/s | 209 kB     00:00    
+(37/41): python3-paramiko-2.12.0-1.fc36.noarch.  15 MB/s | 304 kB     00:00    
+(38/41): python3-websocket-client-1.3.2-2.fc36. 7.5 MB/s |  92 kB     00:00    
+(39/41): runc-1.1.6-1.fc36.x86_64.rpm            19 MB/s | 3.1 MB     00:00    
+(40/41): containerd-1.6.19-1.fc36.x86_64.rpm     40 MB/s |  38 MB     00:00    
+(41/41): moby-engine-20.10.21-1.fc36.x86_64.rpm  25 MB/s |  29 MB     00:01    
+--------------------------------------------------------------------------------
+Total                                            41 MB/s |  75 MB     00:01     
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Preparing        :                                                        1/1 
+  Installing       : cronie-anacron-1.5.7-5.fc36.x86_64                    1/41 
+  Running scriptlet: cronie-anacron-1.5.7-5.fc36.x86_64                    1/41 
+  Installing       : cronie-1.5.7-5.fc36.x86_64                            2/41 
+  Running scriptlet: cronie-1.5.7-5.fc36.x86_64                            2/41 
+Created symlink /etc/systemd/system/multi-user.target.wants/crond.service → /usr/lib/systemd/system/crond.service.
+
+  Installing       : crontabs-1.11-27.20190603git.fc36.noarch              3/41 
+  Installing       : python3-websocket-client-1.3.2-2.fc36.noarch          4/41 
+  Installing       : python3-docker-5.0.3-1.fc36.noarch                    5/41 
+  Running scriptlet: container-selinux-2:2.181.0-2.fc36.noarch             6/41 
+  Installing       : container-selinux-2:2.181.0-2.fc36.noarch             6/41 
+  Running scriptlet: container-selinux-2:2.181.0-2.fc36.noarch             6/41 
+  Installing       : python3-chardet-4.0.0-17.fc36.noarch                  7/41 
+  Installing       : python3-bcrypt-3.2.2-1.fc36.x86_64                    8/41 
+  Installing       : libtool-ltdl-2.4.7-1.fc36.x86_64                      9/41 
+  Installing       : libmd-1.0.4-2.fc36.x86_64                            10/41 
+  Installing       : libbsd-0.11.7-2.fc36.x86_64                          11/41 
+  Installing       : python3-texttable-1.6.2-11.fc36.noarch               12/41 
+  Installing       : python3-pyasn1-0.4.8-8.fc36.noarch                   13/41 
+  Installing       : python3-docopt-0.6.2-22.fc36.noarch                  14/41 
+  Installing       : python3-dockerpty-0.4.1-24.fc36.noarch               15/41 
+  Installing       : python3-docker-pycreds-0.4.0-12.fc36.noarch          16/41 
+  Installing       : python3-click-8.0.4-2.fc36.noarch                    17/41 
+  Installing       : python3-dotenv-0.19.2-2.fc36.noarch                  18/41 
+  Installing       : python3-dotenv+cli-0.19.2-2.fc36.noarch              19/41 
+  Installing       : python3-certifi-2021.10.8-1.fc36.noarch              20/41 
+  Installing       : python3-cached_property-1.5.2-6.fc36.noarch          21/41 
+  Installing       : libsodium-1.0.18-9.fc36.x86_64                       22/41 
+  Installing       : python3-pynacl-1.4.0-5.fc36.x86_64                   23/41 
+  Installing       : python3-paramiko-2.12.0-1.fc36.noarch                24/41 
+  Installing       : python3-docker+ssh-5.0.3-1.fc36.noarch               25/41 
+  Installing       : libnftnl-1.2.1-2.fc36.x86_64                         26/41 
+  Installing       : libnfnetlink-1.0.1-21.fc36.x86_64                    27/41 
+  Installing       : libnetfilter_conntrack-1.0.8-4.fc36.x86_64           28/41 
+  Installing       : libnet-1.2-5.fc36.x86_64                             29/41 
+  Installing       : libibverbs-39.0-1.fc36.x86_64                        30/41 
+  Installing       : libpcap-14:1.10.4-1.fc36.x86_64                      31/41 
+  Installing       : iptables-libs-1.8.7-15.fc36.x86_64                   32/41 
+  Installing       : iptables-legacy-libs-1.8.7-15.fc36.x86_64            33/41 
+  Installing       : iptables-legacy-1.8.7-15.fc36.x86_64                 34/41 
+  Running scriptlet: iptables-legacy-1.8.7-15.fc36.x86_64                 34/41 
+  Installing       : jansson-2.13.1-4.fc36.x86_64                         35/41 
+  Installing       : nftables-1:1.0.1-3.fc36.x86_64                       36/41 
+  Running scriptlet: nftables-1:1.0.1-3.fc36.x86_64                       36/41 
+  Installing       : criu-3.17.1-2.fc36.x86_64                            37/41 
+  Installing       : runc-2:1.1.6-1.fc36.x86_64                           38/41 
+  Installing       : containerd-1.6.19-1.fc36.x86_64                      39/41 
+  Running scriptlet: containerd-1.6.19-1.fc36.x86_64                      39/41 
+  Running scriptlet: moby-engine-20.10.21-1.fc36.x86_64                   40/41 
+  Installing       : moby-engine-20.10.21-1.fc36.x86_64                   40/41 
+  Running scriptlet: moby-engine-20.10.21-1.fc36.x86_64                   40/41 
+Created symlink /etc/systemd/system/sockets.target.wants/docker.socket → /usr/lib/systemd/system/docker.socket.
+
+  Installing       : docker-compose-1.29.2-4.fc36.noarch                  41/41 
+  Running scriptlet: container-selinux-2:2.181.0-2.fc36.noarch            41/41 
+  Running scriptlet: docker-compose-1.29.2-4.fc36.noarch                  41/41 
+/usr/lib/tmpfiles.d/setup.conf:2: Duplicate line for path "/run/motd.d", ignoring.
+
+  Verifying        : container-selinux-2:2.181.0-2.fc36.noarch             1/41 
+  Verifying        : docker-compose-1.29.2-4.fc36.noarch                   2/41 
+  Verifying        : iptables-legacy-1.8.7-15.fc36.x86_64                  3/41 
+  Verifying        : iptables-legacy-libs-1.8.7-15.fc36.x86_64             4/41 
+  Verifying        : iptables-libs-1.8.7-15.fc36.x86_64                    5/41 
+  Verifying        : jansson-2.13.1-4.fc36.x86_64                          6/41 
+  Verifying        : libibverbs-39.0-1.fc36.x86_64                         7/41 
+  Verifying        : libnet-1.2-5.fc36.x86_64                              8/41 
+  Verifying        : libnetfilter_conntrack-1.0.8-4.fc36.x86_64            9/41 
+  Verifying        : libnfnetlink-1.0.1-21.fc36.x86_64                    10/41 
+  Verifying        : libnftnl-1.2.1-2.fc36.x86_64                         11/41 
+  Verifying        : libsodium-1.0.18-9.fc36.x86_64                       12/41 
+  Verifying        : nftables-1:1.0.1-3.fc36.x86_64                       13/41 
+  Verifying        : python3-cached_property-1.5.2-6.fc36.noarch          14/41 
+  Verifying        : python3-certifi-2021.10.8-1.fc36.noarch              15/41 
+  Verifying        : python3-click-8.0.4-2.fc36.noarch                    16/41 
+  Verifying        : python3-docker-pycreds-0.4.0-12.fc36.noarch          17/41 
+  Verifying        : python3-dockerpty-0.4.1-24.fc36.noarch               18/41 
+  Verifying        : python3-docopt-0.6.2-22.fc36.noarch                  19/41 
+  Verifying        : python3-dotenv+cli-0.19.2-2.fc36.noarch              20/41 
+  Verifying        : python3-dotenv-0.19.2-2.fc36.noarch                  21/41 
+  Verifying        : python3-pyasn1-0.4.8-8.fc36.noarch                   22/41 
+  Verifying        : python3-pynacl-1.4.0-5.fc36.x86_64                   23/41 
+  Verifying        : python3-texttable-1.6.2-11.fc36.noarch               24/41 
+  Verifying        : containerd-1.6.19-1.fc36.x86_64                      25/41 
+  Verifying        : criu-3.17.1-2.fc36.x86_64                            26/41 
+  Verifying        : cronie-1.5.7-5.fc36.x86_64                           27/41 
+  Verifying        : cronie-anacron-1.5.7-5.fc36.x86_64                   28/41 
+  Verifying        : crontabs-1.11-27.20190603git.fc36.noarch             29/41 
+  Verifying        : libbsd-0.11.7-2.fc36.x86_64                          30/41 
+  Verifying        : libmd-1.0.4-2.fc36.x86_64                            31/41 
+  Verifying        : libpcap-14:1.10.4-1.fc36.x86_64                      32/41 
+  Verifying        : libtool-ltdl-2.4.7-1.fc36.x86_64                     33/41 
+  Verifying        : moby-engine-20.10.21-1.fc36.x86_64                   34/41 
+  Verifying        : python3-bcrypt-3.2.2-1.fc36.x86_64                   35/41 
+  Verifying        : python3-chardet-4.0.0-17.fc36.noarch                 36/41 
+  Verifying        : python3-docker+ssh-5.0.3-1.fc36.noarch               37/41 
+  Verifying        : python3-docker-5.0.3-1.fc36.noarch                   38/41 
+  Verifying        : python3-paramiko-2.12.0-1.fc36.noarch                39/41 
+  Verifying        : python3-websocket-client-1.3.2-2.fc36.noarch         40/41 
+  Verifying        : runc-2:1.1.6-1.fc36.x86_64                           41/41 
+
+Installed:
+  container-selinux-2:2.181.0-2.fc36.noarch                                     
+  containerd-1.6.19-1.fc36.x86_64                                               
+  criu-3.17.1-2.fc36.x86_64                                                     
+  cronie-1.5.7-5.fc36.x86_64                                                    
+  cronie-anacron-1.5.7-5.fc36.x86_64                                            
+  crontabs-1.11-27.20190603git.fc36.noarch                                      
+  docker-compose-1.29.2-4.fc36.noarch                                           
+  iptables-legacy-1.8.7-15.fc36.x86_64                                          
+  iptables-legacy-libs-1.8.7-15.fc36.x86_64                                     
+  iptables-libs-1.8.7-15.fc36.x86_64                                            
+  jansson-2.13.1-4.fc36.x86_64                                                  
+  libbsd-0.11.7-2.fc36.x86_64                                                   
+  libibverbs-39.0-1.fc36.x86_64                                                 
+  libmd-1.0.4-2.fc36.x86_64                                                     
+  libnet-1.2-5.fc36.x86_64                                                      
+  libnetfilter_conntrack-1.0.8-4.fc36.x86_64                                    
+  libnfnetlink-1.0.1-21.fc36.x86_64                                             
+  libnftnl-1.2.1-2.fc36.x86_64                                                  
+  libpcap-14:1.10.4-1.fc36.x86_64                                               
+  libsodium-1.0.18-9.fc36.x86_64                                                
+  libtool-ltdl-2.4.7-1.fc36.x86_64                                              
+  moby-engine-20.10.21-1.fc36.x86_64                                            
+  nftables-1:1.0.1-3.fc36.x86_64                                                
+  python3-bcrypt-3.2.2-1.fc36.x86_64                                            
+  python3-cached_property-1.5.2-6.fc36.noarch                                   
+  python3-certifi-2021.10.8-1.fc36.noarch                                       
+  python3-chardet-4.0.0-17.fc36.noarch                                          
+  python3-click-8.0.4-2.fc36.noarch                                             
+  python3-docker-5.0.3-1.fc36.noarch                                            
+  python3-docker+ssh-5.0.3-1.fc36.noarch                                        
+  python3-docker-pycreds-0.4.0-12.fc36.noarch                                   
+  python3-dockerpty-0.4.1-24.fc36.noarch                                        
+  python3-docopt-0.6.2-22.fc36.noarch                                           
+  python3-dotenv-0.19.2-2.fc36.noarch                                           
+  python3-dotenv+cli-0.19.2-2.fc36.noarch                                       
+  python3-paramiko-2.12.0-1.fc36.noarch                                         
+  python3-pyasn1-0.4.8-8.fc36.noarch                                            
+  python3-pynacl-1.4.0-5.fc36.x86_64                                            
+  python3-texttable-1.6.2-11.fc36.noarch                                        
+  python3-websocket-client-1.3.2-2.fc36.noarch                                  
+  runc-2:1.1.6-1.fc36.x86_64                                                    
+
+Complete!
+Created symlink /etc/systemd/system/multi-user.target.wants/docker.service → /usr/lib/systemd/system/docker.service.
+WARNING! Using --password via the CLI is insecure. Use --password-stdin.
+WARNING! Your password will be stored unencrypted in /root/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
+Login Succeeded
+WARNING! Using --password via the CLI is insecure. Use --password-stdin.
+WARNING! Your password will be stored unencrypted in /root/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
+Login Succeeded
+[user]
+        name = ca_cdc_fci
+        email = I_EXT_MBB_WCDMA_SWD3_OFFICE_PRIME@internal.nsn.com
+[http]
+        sslverify = false
+[color]
+        ui = false
+vm.max_map_count = 262144
+Failed to stop firewalld.service: Unit firewalld.service not loaded.
+which: no nscd in (/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin)
+Last metadata expiration check: 0:00:51 ago on Sat 27 May 2023 05:52:16 AM EEST.
+No match for argument: nscd
+Error: Unable to find a match: nscd
+Failed to enable unit: Unit file nscd.service does not exist.
+The following deploy sub-keys are not supported and have been ignored: endpoint_mode
+Pulling jenkins ... 
+Pulling jenkins ... pulling from ndcsci/jenkins02
+Pulling jenkins ... pulling fs layer
+Pulling jenkins ... pulling fs layer
+Pulling jenkins ... pulling fs layer
+Pulling jenkins ... pulling fs layer
+Pulling jenkins ... pulling fs layer
+Pulling jenkins ... pulling fs layer
+Pulling jenkins ... pulling fs layer
+Pulling jenkins ... pulling fs layer
+Pulling jenkins ... waiting
+Pulling jenkins ... waiting
+Pulling jenkins ... waiting
+Pulling jenkins ... waiting
+Pulling jenkins ... waiting
+Pulling jenkins ... downloading (0.1%)
+Pulling jenkins ... downloading (1.1%)
+Pulling jenkins ... downloading (0.7%)
+Pulling jenkins ... downloading (2.8%)
+Pulling jenkins ... downloading (5.2%)
+Pulling jenkins ... downloading (41.6%)
+Pulling jenkins ... downloading (11.3%)
+Pulling jenkins ... downloading (7.9%)
+Pulling jenkins ... verifying checksum
+Pulling jenkins ... download complete
+Pulling jenkins ... downloading (0.7%)
+Pulling jenkins ... downloading (32.4%)
+Pulling jenkins ... downloading (10.7%)
+Pulling jenkins ... downloading (21.3%)
+Pulling jenkins ... downloading (43.0%)
+Pulling jenkins ... downloading (13.1%)
+Pulling jenkins ... downloading (40.3%)
+Pulling jenkins ... downloading (62.0%)
+Pulling jenkins ... downloading (15.6%)
+Pulling jenkins ... downloading (59.4%)
+Pulling jenkins ... downloading (71.8%)
+Pulling jenkins ... downloading (18.1%)
+Pulling jenkins ... downloading (78.5%)
+Pulling jenkins ... downloading (88.1%)
+Pulling jenkins ... downloading (20.4%)
+Pulling jenkins ... downloading (94.6%)
+Pulling jenkins ... verifying checksum
+Pulling jenkins ... download complete
+Pulling jenkins ... verifying checksum
+Pulling jenkins ... download complete
+Pulling jenkins ... downloading (100.0%)
+Pulling jenkins ... download complete
+Pulling jenkins ... downloading (22.6%)
+Pulling jenkins ... extracting (0.7%)
+Pulling jenkins ... downloading (25.0%)
+Pulling jenkins ... extracting (8.8%)
+Pulling jenkins ... downloading (27.4%)
+Pulling jenkins ... downloading (28.2%)
+Pulling jenkins ... extracting (14.6%)
+Pulling jenkins ... downloading (29.1%)
+Pulling jenkins ... extracting (17.5%)
+Pulling jenkins ... downloading (29.7%)
+Pulling jenkins ... extracting (24.8%)
+Pulling jenkins ... extracting (25.6%)
+Pulling jenkins ... downloading (30.1%)
+Pulling jenkins ... downloading (51.2%)
+Pulling jenkins ... downloading (100.0%)
+Pulling jenkins ... verifying checksum
+Pulling jenkins ... download complete
+Pulling jenkins ... extracting (30.7%)
+Pulling jenkins ... downloading (100.0%)
+Pulling jenkins ... download complete
+Pulling jenkins ... downloading (32.1%)
+Pulling jenkins ... extracting (40.2%)
+Pulling jenkins ... downloading (95.1%)
+Pulling jenkins ... downloading (100.0%)
+Pulling jenkins ... download complete
+Pulling jenkins ... downloading (33.4%)
+Pulling jenkins ... extracting (50.4%)
+Pulling jenkins ... downloading (35.9%)
+Pulling jenkins ... extracting (59.1%)
+Pulling jenkins ... extracting (65.7%)
+Pulling jenkins ... downloading (37.2%)
+Pulling jenkins ... extracting (66.4%)
+Pulling jenkins ... downloading (37.8%)
+Pulling jenkins ... extracting (67.9%)
+Pulling jenkins ... downloading (39.0%)
+Pulling jenkins ... downloading (39.9%)
+Pulling jenkins ... extracting (69.4%)
+Pulling jenkins ... downloading (40.5%)
+Pulling jenkins ... extracting (73.7%)
+Pulling jenkins ... extracting (78.9%)
+Pulling jenkins ... extracting (85.4%)
+Pulling jenkins ... downloading (40.9%)
+Pulling jenkins ... downloading (41.5%)
+Pulling jenkins ... extracting (90.5%)
+Pulling jenkins ... downloading (41.6%)
+Pulling jenkins ... extracting (95.6%)
+Pulling jenkins ... downloading (42.1%)
+Pulling jenkins ... extracting (96.4%)
+Pulling jenkins ... downloading (42.7%)
+Pulling jenkins ... extracting (100.0%)
+Pulling jenkins ... extracting (100.0%)
+Pulling jenkins ... downloading (44.9%)
+Pulling jenkins ... pull complete
+Pulling jenkins ... extracting (1.1%)
+Pulling jenkins ... downloading (47.3%)
+Pulling jenkins ... extracting (10.0%)
+Pulling jenkins ... extracting (21.2%)
+Pulling jenkins ... downloading (48.5%)
+Pulling jenkins ... extracting (22.3%)
+Pulling jenkins ... extracting (32.3%)
+Pulling jenkins ... extracting (61.3%)
+Pulling jenkins ... extracting (74.6%)
+Pulling jenkins ... extracting (86.9%)
+Pulling jenkins ... extracting (100.0%)
+Pulling jenkins ... downloading (49.8%)
+Pulling jenkins ... pull complete
+Pulling jenkins ... downloading (52.0%)
+Pulling jenkins ... downloading (54.3%)
+Pulling jenkins ... downloading (56.6%)
+Pulling jenkins ... downloading (58.8%)
+Pulling jenkins ... downloading (61.0%)
+Pulling jenkins ... downloading (63.0%)
+Pulling jenkins ... downloading (65.2%)
+Pulling jenkins ... downloading (67.3%)
+Pulling jenkins ... downloading (69.4%)
+Pulling jenkins ... downloading (71.3%)
+Pulling jenkins ... downloading (73.5%)
+Pulling jenkins ... downloading (75.6%)
+Pulling jenkins ... downloading (77.6%)
+Pulling jenkins ... downloading (79.6%)
+Pulling jenkins ... downloading (81.7%)
+Pulling jenkins ... downloading (83.9%)
+Pulling jenkins ... downloading (86.1%)
+Pulling jenkins ... downloading (88.1%)
+Pulling jenkins ... downloading (90.1%)
+Pulling jenkins ... downloading (92.2%)
+Pulling jenkins ... downloading (94.3%)
+Pulling jenkins ... downloading (96.4%)
+Pulling jenkins ... downloading (98.4%)
+Pulling jenkins ... verifying checksum
+Pulling jenkins ... download complete
+Pulling jenkins ... extracting (0.1%)
+Pulling jenkins ... extracting (1.6%)
+Pulling jenkins ... extracting (4.6%)
+Pulling jenkins ... extracting (7.4%)
+Pulling jenkins ... extracting (10.3%)
+Pulling jenkins ... extracting (13.1%)
+Pulling jenkins ... extracting (15.7%)
+Pulling jenkins ... extracting (19.0%)
+Pulling jenkins ... extracting (22.2%)
+Pulling jenkins ... extracting (25.4%)
+Pulling jenkins ... extracting (28.1%)
+Pulling jenkins ... extracting (31.0%)
+Pulling jenkins ... extracting (34.2%)
+Pulling jenkins ... extracting (37.3%)
+Pulling jenkins ... extracting (40.5%)
+Pulling jenkins ... extracting (43.9%)
+Pulling jenkins ... extracting (47.2%)
+Pulling jenkins ... extracting (50.5%)
+Pulling jenkins ... extracting (53.7%)
+Pulling jenkins ... extracting (56.6%)
+Pulling jenkins ... extracting (58.1%)
+Pulling jenkins ... extracting (59.5%)
+Pulling jenkins ... extracting (60.6%)
+Pulling jenkins ... extracting (62.2%)
+Pulling jenkins ... extracting (63.3%)
+Pulling jenkins ... extracting (64.5%)
+Pulling jenkins ... extracting (65.7%)
+Pulling jenkins ... extracting (66.9%)
+Pulling jenkins ... extracting (67.6%)
+Pulling jenkins ... extracting (68.6%)
+Pulling jenkins ... extracting (69.5%)
+Pulling jenkins ... extracting (70.4%)
+Pulling jenkins ... extracting (71.2%)
+Pulling jenkins ... extracting (72.3%)
+Pulling jenkins ... extracting (73.3%)
+Pulling jenkins ... extracting (73.6%)
+Pulling jenkins ... extracting (73.9%)
+Pulling jenkins ... extracting (74.3%)
+Pulling jenkins ... extracting (74.8%)
+Pulling jenkins ... extracting (75.9%)
+Pulling jenkins ... extracting (77.0%)
+Pulling jenkins ... extracting (78.3%)
+Pulling jenkins ... extracting (79.1%)
+Pulling jenkins ... extracting (79.7%)
+Pulling jenkins ... extracting (80.2%)
+Pulling jenkins ... extracting (80.3%)
+Pulling jenkins ... extracting (80.9%)
+Pulling jenkins ... extracting (82.1%)
+Pulling jenkins ... extracting (82.8%)
+Pulling jenkins ... extracting (83.0%)
+Pulling jenkins ... extracting (83.2%)
+Pulling jenkins ... extracting (83.7%)
+Pulling jenkins ... extracting (84.3%)
+Pulling jenkins ... extracting (84.4%)
+Pulling jenkins ... extracting (85.3%)
+Pulling jenkins ... extracting (85.5%)
+Pulling jenkins ... extracting (86.1%)
+Pulling jenkins ... extracting (86.4%)
+Pulling jenkins ... extracting (86.5%)
+Pulling jenkins ... extracting (86.9%)
+Pulling jenkins ... extracting (87.6%)
+Pulling jenkins ... extracting (88.0%)
+Pulling jenkins ... extracting (88.5%)
+Pulling jenkins ... extracting (88.8%)
+Pulling jenkins ... extracting (89.0%)
+Pulling jenkins ... extracting (90.8%)
+Pulling jenkins ... extracting (93.2%)
+Pulling jenkins ... extracting (95.0%)
+Pulling jenkins ... extracting (97.6%)
+Pulling jenkins ... extracting (98.9%)
+Pulling jenkins ... extracting (99.7%)
+Pulling jenkins ... extracting (100.0%)
+Pulling jenkins ... pull complete
+Pulling jenkins ... extracting (0.8%)
+Pulling jenkins ... extracting (1.5%)
+Pulling jenkins ... extracting (3.0%)
+Pulling jenkins ... extracting (6.8%)
+Pulling jenkins ... extracting (8.3%)
+Pulling jenkins ... extracting (12.1%)
+Pulling jenkins ... extracting (13.6%)
+Pulling jenkins ... extracting (24.2%)
+Pulling jenkins ... extracting (43.1%)
+Pulling jenkins ... extracting (51.4%)
+Pulling jenkins ... extracting (72.6%)
+Pulling jenkins ... extracting (86.9%)
+Pulling jenkins ... extracting (94.5%)
+Pulling jenkins ... extracting (100.0%)
+Pulling jenkins ... pull complete
+Pulling jenkins ... extracting (100.0%)
+Pulling jenkins ... extracting (100.0%)
+Pulling jenkins ... pull complete
+Pulling jenkins ... extracting (100.0%)
+Pulling jenkins ... extracting (100.0%)
+Pulling jenkins ... pull complete
+Pulling jenkins ... extracting (100.0%)
+Pulling jenkins ... extracting (100.0%)
+Pulling jenkins ... pull complete
+Pulling jenkins ... extracting (100.0%)
+Pulling jenkins ... extracting (100.0%)
+Pulling jenkins ... pull complete
+Pulling jenkins ... digest: sha256:ba539b45f42ea4fbfe...
+Pulling jenkins ... status: downloaded newer image fo...
+Pulling jenkins ... done
+The following deploy sub-keys are not supported and have been ignored: endpoint_mode
+Creating root_jenkins_1 ... 
+Creating root_jenkins_1 ... done

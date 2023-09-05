@@ -1,0 +1,247 @@
+#!/bin/bash
+
+set -e
+set -o pipefail
+export EC2_NAME=ndcs-jenkins-02
+export OS_CLOUDNAME=es-si-os-ohn-64
+export OS_IDENTITY_API_VERSION=3
+export OS_INTERFACE=public
+export OS_PROJECT_DOMAIN_ID=default
+export OS_USER_DOMAIN_ID=default
+export OS_PROJECT_NAME=wingrnc
+export OS_USERNAME=wingrnc
+export OS_PASSWORD="DS4tg%24@0rG"
+export OS_AUTH_URL=https://es-si-os-ohn-64.eecloud.nsn-net.net:5000/v3
+export DEPLOYMENT_NAME="ndcs-jenkins-02"
+export DEPLOYMENT_TYPE="openstack"
+export JENKINS_SERVICE_REPLICAS="1"
+export CLOUD_EUCA_REPLICAS="1"
+export CLOUD_CDC_PASS="AKCp8mZcguPMbMbtxioYcWjfq6qfn6qdhyQPmLhmEHzfFgeesJW88t5f6jhMAqTb9ZSD4PevN"
+export CLOUD_EUCA_NETWORK="prime"
+export CLOUD_EUCA_DYNAMIC_DNS_NAME2="jenkins02.ndcs"
+export CLOUD_EUCA_ELASTIC_IP="10.157.7.106"
+export CLOUD_EUCA_SSH_KEY="prime"
+export CLOUD_EUCA_TYPE="da.008-0032"
+export CLOUD_IAAS_IMAGE="prime-local.artifactory-espoo1.int.net.nokia.com/prime/iaas:v1.50.0"
+export CLOUD_EUCA_ZONE="es-si-os-ohn-64_1"
+export CLOUD_EUCA_PUBLIC_NETWORK="datacentre"
+export CLOUD_EUCA_IMAGE="nesc-baseimages-fedora-36-2022-07-11"
+export CLOUD_EUCA_REGION="es-si-os-ohn-64"
+export CLOUD_CDC_USER="ca_cdc_fci"
+echo "export KUBECONFIG=/etc/kubernetes/admin.conf" >> /root/.bashrc
+update-crypto-policies --set LEGACY
+
+if [ "${CLOUD_EUCA_PROXY}" != "" ];then export http_proxy=${CLOUD_EUCA_PROXY};export https_proxy=${CLOUD_EUCA_PROXY};fi;
+dnf remove -y zram-generator-defaults ||:
+which python3 || yum install -y python3-devel
+which pip3 || yum install -y python3-pip
+which openstack || pip3 install python-openstackclient==5.8.0
+unset http_proxy && unset https_proxy
+export LOCAL_IP=`wget --no-proxy -q -O - http://169.254.169.254/latest/meta-data/local-ipv4`
+export RESERVATION_ID=`wget --no-proxy -q -O - http://169.254.169.254/latest/meta-data/reservation-id`
+export INSTANCE_ID=`openstack server list --reservation-id ${RESERVATION_ID} -c ID -f value`
+export PUBLIC_IP=`wget --no-proxy -q -O - http://169.254.169.254/latest/meta-data/public-ipv4`
+export PUBLIC_HOSTNAME=`echo ${EC2_NAME,,}.${PUBLIC_IP}`
+
+echo "export PATH=\$PATH:/var/lib/snapd/snap/bin" >>/root/.bashrc || echo continue
+chronyc makestep || ntpdate -u ntp0.emea.nsn-net.net || date -s "$(wget -qSO- -e http_proxy=10.158.100.1:8080 --max-redirect=0 google.com 2>&1 | grep Date: | cut -d' ' -f5-8)Z" || echo "time sync failed"
+openstack server set --name ${EC2_NAME}-ok1 ${INSTANCE_ID} || echo continue
+
+if env | grep -q CLOUD_YUM_REPO;then
+    rm -rf /etc/yum.repos.d/*
+    for repo in `env | grep CLOUD_YUM_REPO|cut -d= -f2`;do
+        name=repo-${RANDOM}
+        cat >>/etc/yum.repos.d/iaas.repo <<EOF
+[$name]
+name=$name
+baseurl=${repo}
+enabled=1
+gpgcheck=0
+skip_if_unavailable=False
+
+EOF
+    done
+fi
+
+yum clean all
+rm -rf /var/cache/yum
+
+if [ ${CLOUD_EUCA_ELASTIC_IP} ] ;then
+    for dns in `echo $CLOUD_EUCA_DYNAMIC_DNS_NAME |sed 's/,/ /g'`;do
+        echo "${CLOUD_EUCA_ELASTIC_IP} ${dns}.dynamic.nsn-net.net" >>/etc/hosts
+        if [ "${CLOUD_EUCA_PROXY}" != "" ];then export http_proxy=${CLOUD_EUCA_PROXY};export https_proxy=${CLOUD_EUCA_PROXY};fi;
+        which nsupdate || yum -y install bind-utils
+        unset http_proxy && unset https_proxy
+        if dig +short ${dns}.dynamic.nsn-net.net |grep -q ${CLOUD_EUCA_ELASTIC_IP} ;then
+            echo "${dns}.dynamic.nsn-net.net already exists! skip it!"
+            dig +short ${dns}.dynamic.nsn-net.net
+        else
+            echo "Reserving Dynamic hostname ${dns}.dynamic.nsn-net.net for elastic IP ..."
+            nsupdate -d <<EOF
+update delete ${dns}.dynamic.nsn-net.net A
+update add ${dns}.dynamic.nsn-net.net 0 A ${CLOUD_EUCA_ELASTIC_IP}
+send
+EOF
+        fi
+    done
+
+    #http://dyndns-api.nesc.nokia.net/
+    for dns in `echo $CLOUD_EUCA_DYNAMIC_DNS_NAME2 |sed 's/,/ /g'`;do
+        echo "${CLOUD_EUCA_ELASTIC_IP} ${dns}.dyn.nesc.nokia.net" >>/etc/hosts
+        if curl --silent http://dyndns-api.nesc.nokia.net/dyndns/search/regexp/${dns}.dyn.nesc.nokia.net |grep ${CLOUD_EUCA_ELASTIC_IP} ;then
+            echo "${dns}.dyn.nesc.nokia.net already exists! skip it!"
+        else
+            echo "Reserving dynamic DNS ${dns}.dyn.nesc.nokia.net for floating IP ..."
+            curl --silent --noproxy "*" http://dyndns-api.nesc.nokia.net/dyndns/replace/${dns}/A?data=${CLOUD_EUCA_ELASTIC_IP}
+        fi
+    done
+fi
+
+hostname ${PUBLIC_HOSTNAME} || echo "HOST_NAME_MAX=64"
+echo "${PUBLIC_HOSTNAME}" >/etc/hostname
+echo "${PUBLIC_IP} $HOSTNAME" >>/etc/hosts
+
+if [ $CLOUD_EUCA_ELASTIC_VOLUME ];then
+    sleep 10
+fi
+for line in `echo $CLOUD_EUCA_ELASTIC_VOLUME |sed 's/,/ /g'`;do
+    vol_name=`echo ${line}|cut -d: -f1` ||:
+    vol_id=`openstack volume show $vol_name -c id -f value`
+    if echo $line |grep -q :;then
+        vol_dev=`echo ${line}|cut -d: -f2`
+        vol_dir=`echo ${line}|cut -d: -f3`
+    else
+        vol_dev=/dev/vdb
+        vol_dir=/data
+    fi
+
+    openstack server add volume ${INSTANCE_ID} ${vol_id} --device ${vol_dev}
+    sleep 10
+    parted --script -m ${vol_dev} print || mkfs.ext4 ${vol_dev}
+    mkdir -p ${vol_dir}
+    mount ${vol_dev} ${vol_dir}
+    echo "${vol_dev}    ${vol_dir}   ext4  rw  0  0" >> /etc/fstab
+    chmod 777 ${vol_dir}
+done
+
+
+HOST_WORKAROUND_DIR=/iaas/host_workaround
+mkdir -p $HOST_WORKAROUND_DIR /iaas/jobs
+echo "" >$HOST_WORKAROUND_DIR/etc_hosts_extras
+echo "NODE_PUBLIC_IP=${PUBLIC_IP}" > ${HOST_WORKAROUND_DIR}/node.txt
+echo "NODE_PUBLIC_HOSTNAME=${PUBLIC_HOSTNAME}" >> ${HOST_WORKAROUND_DIR}/node.txt
+if [ "${CLOUD_EUCA_PROXY}" != "" ];then export http_proxy=${CLOUD_EUCA_PROXY};export https_proxy=${CLOUD_EUCA_PROXY};fi;
+dnf -y install moby-engine docker-compose iptables crontabs || dnf -y install moby-engine docker-compose iptables crontabs
+unset http_proxy && unset https_proxy
+if [ -f /usr/lib/systemd/system/docker.service ];then
+  rm -f /etc/docker/key.json
+  CLOUD_DOCKER_NOFILE=${CLOUD_DOCKER_NOFILE:-1048576}
+  sed -i "s#nofile=.*#nofile=${CLOUD_DOCKER_NOFILE}:${CLOUD_DOCKER_NOFILE} \\\\#" /etc/sysconfig/docker ||:
+  sed -i "s#--log-driver=journald##" /etc/sysconfig/docker ||:
+  sed -i "s#--selinux-enabled##" /etc/sysconfig/docker ||:
+  sed -i "s#ExecStart=/usr/bin/dockerd#Environment=\"http_proxy=http://10.158.100.1:8080/\"\nEnvironment=\"https_proxy=http://10.158.100.1:8080/\"\nEnvironment=\"no_proxy=.nsn-net.net,.nokia.com\"\nExecStart=/usr/bin/dockerd -H tcp://0.0.0.0:2375 --label=DOCKER_DAEMON_HOST=${PUBLIC_IP} ${DOCKER_EXEC_PARAM} -s ${CLOUD_DOCKER_DRIVER:-overlay2} --default-cgroupns-mode=${CLOUD_DOCKER_CGROUP:-host} --mtu=${CLOUD_DOCKER_MTU:-1450}#" /usr/lib/systemd/system/docker.service
+  systemctl daemon-reload
+  systemctl enable docker
+  systemctl restart docker
+fi
+
+if [ "${CLOUD_CDC_USER}" != "" ];then
+  timeout 30 docker login -u ${CLOUD_CDC_USER} -p ${CLOUD_CDC_PASS} prime-local.artifactory-espoo1.int.net.nokia.com ||:
+  timeout 30 docker login -u ${CLOUD_CDC_USER} -p ${CLOUD_CDC_PASS} rcp-cdc-docker-local.artifactory-espoo1.int.net.nokia.com ||:
+fi
+
+if [ "${CLOUD_QUMU_MULTIARCH}" != "" ];then
+  timeout 60 docker run --rm --privileged docker-registry-remote.artifactory-espoo1.int.net.nokia.com/multiarch/qemu-user-static --reset -p yes ||:
+fi
+
+tee /root/.gitconfig <<-EOF
+[user]
+        name = ${CLOUD_CDC_USER:-hzci}
+        email = I_EXT_MBB_WCDMA_SWD3_OFFICE_PRIME@internal.nsn.com
+[http]
+        sslverify = false
+[color]
+        ui = false
+EOF
+
+mkdir -p /root/.ssh
+echo "StrictHostKeyChecking no" >/root/.ssh/config
+
+ulimit -n 16384
+sysctl -w vm.max_map_count=262144
+
+iptables -P FORWARD ACCEPT ||:
+systemctl stop firewalld ||:
+which nscd || yum install -y nscd ||:
+systemctl enable nscd && systemctl restart nscd ||:
+systemctl enable systemd-resolved && systemctl restart systemd-resolved ||:
+systemctl enable crond && systemctl restart crond ||:
+sleep 2
+cat > /root/docker-compose.yml << EOL
+version: "3.6"
+services:
+  jenkins:
+    image: prime-local.artifactory-espoo1.int.net.nokia.com/ndcsci/jenkins02:v2.387
+    restart: always
+    network_mode: host
+    privileged: true
+    logging:
+      options:
+        max-size: "100m"
+        max-file: "5"
+    deploy:
+      endpoint_mode: dnsrr
+      replicas: 1
+    environment:
+      JAVA_OPTS: "-Xmx4096m -Djava.awt.headless=true"
+EOL
+#!/bin/bash
+
+set -e
+set -o pipefail
+
+C_FILE=/root/docker-compose.yml
+S_FILE=/root/docker-stack.yml
+
+if [ -e /tmp/variables.txt ];then source /tmp/variables.txt;fi;
+HOST_FILE=/iaas/host_workaround/node.txt
+if [ -e $HOST_FILE ];then
+  for line in `cat ${HOST_FILE}`;do
+    name=`echo $line|cut -d= -f1`
+    value=`echo $line|cut -d= -f2`
+    if [ -e $C_FILE ];then sed -i "s#${name}#${value}#g" $C_FILE;fi;
+    if [ -e $S_FILE ];then sed -i "s#${name}#${value}#g" $S_FILE;fi;
+  done
+fi
+
+DOCKER_ARGS=""
+for url in `echo $CLOUD_DOCKER_URL |sed 's/,/ /g'`;do
+  if timeout 10 docker -H $url version >/dev/null;then
+    DOCKER_ARGS="-H $url"
+    break
+  fi
+done
+
+if [ -e $C_FILE ];then
+  TMP_ARGS="$DOCKER_ARGS -f $C_FILE"
+  docker-compose $TMP_ARGS pull || docker-compose $TMP_ARGS pull || docker-compose $TMP_ARGS pull || docker-compose $TMP_ARGS pull
+  docker-compose $TMP_ARGS up -d || docker-compose $TMP_ARGS up -d || (systemctl restart docker; docker-compose $TMP_ARGS up -d;) || docker-compose $TMP_ARGS up -d
+
+  for service in `env | grep SERVICE_REPLICAS`;do
+    service_name=`echo ${service} |sed 's/_SERVICE_REPLICAS//' |cut -d= -f1`
+    service_name_lowercase=`echo ${service_name} |tr '[A-Z]' '[a-z]'`
+    service_replicas=`env |grep ${service_name}_SERVICE_REPLICAS|cut -d= -f2`
+    docker-compose $TMP_ARGS scale ${service_name_lowercase}=${service_replicas} >/dev/null 2>&1 ||:
+  done
+fi
+
+if [ -e $S_FILE ];then
+  if [ "$CLOUD_DOCKER_CLEANUP" = "YES" ];then
+    docker ${DOCKER_ARGS} stack rm $DEPLOYMENT_NAME || docker ${DOCKER_ARGS} stack rm $DEPLOYMENT_NAME
+  else
+    docker ${DOCKER_ARGS} stack deploy -c $S_FILE --resolve-image $CLOUD_DOCKER_RESOLVE_IMAGE --prune $DEPLOYMENT_NAME || docker ${DOCKER_ARGS} stack deploy -c $S_FILE --prune ${DEPLOYMENT_NAME}
+  fi
+fi
+if [ "${EC2_NAME}" ];then
+  openstack server set --name ${EC2_NAME}-ok2 ${INSTANCE_ID} || echo ""
+fi
